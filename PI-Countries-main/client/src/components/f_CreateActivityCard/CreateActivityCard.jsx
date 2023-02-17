@@ -90,16 +90,16 @@ export default function CreateActivityCard(){
             })
         } else {
             if(!resName){
-                setAdNombre('*nombre debe tener entre 2 y 20 caracteres, no llevar simbolos ni numeros y no ser ')
+                setAdNombre('*Name must have a length between 2 and 20 characters, no symbols, no numbers')
             }
             if(!activity.duration || !activity.difficulty || !activity.season>0){
-                setLlenar('*no se pueden enviar campos vacios')
+                setLlenar("Can't send empty fields")
             }
         }
     }
 
     function CNA(){
-        setCNA_msg('Esta accion limpia este formulario para crear la accion. Los datos no guardados se perderan. Desea proseguir?')
+        setCNA_msg('This action will clean this form to create a NEW ACTIVITY. Unsaved data will be lost. Do you wish to continue?')
     }
 
     function quedarse(){
@@ -150,29 +150,31 @@ export default function CreateActivityCard(){
         <div>
             {
                 send?
-                send
+                <div className={`${style.send}`}>{send}</div>
                 :
                <div>
                 {
                     CNA_msg?
-                    <div>
+                    <div className={`${style.new}`}>
                         <h1>{CNA_msg}</h1>
                         <div>
-                            <button onClick={proseguir}>Proseguir</button>
-                            <button onClick={quedarse}>Quedarse</button>
+                            <button onClick={proseguir} className={`${style.leave}`}>Continue</button>
+                            <button onClick={quedarse} className={`${style.stay}`}>Stay</button>
                         </div>
                     </div>
                     :
-                    <div>
-                        <Link to='/home'><button>Home</button></Link>
-                        <button onClick={CNA}>Create New Activity</button>
-                        <form>
-                            <button type='submit' onClick={noRef}>Save Activity</button>
-                            <div>{llenar && llenar}</div>
+                    <div className={`${style.box}`}>
+                        <div className={`${style.main}`}>
+                            <Link to='/home' className={`${style.home}`} style={{textDecoration: 'none'}}>Home</Link>
+                            <button onClick={CNA} className={`${style.act}`}>Create New Activity</button>
+                        </div>
+                        <form className={`${style.form}`}>
+                            <button type='submit' onClick={noRef} className={`${style.save}`}>Save Activity</button>
+                            <div className={`${style.warning}`}>{llenar && llenar}</div>
                             <div>
                                 <label>Name: </label>
                                 <input type='text' name='name' value={activity.name} onChange={writting}/>
-                                <div>{adNombre && adNombre}</div>
+                                <div className={`${style.warning}`}>{adNombre && adNombre}</div>
                             </div>
                             <div>
                                 <label>Difficulty: </label>
@@ -182,10 +184,8 @@ export default function CreateActivityCard(){
                                 <input type='radio' name='difficulty' value='4' onChange={writting} checked={activity.difficulty === '4'}/>4
                                 <input type='radio' name='difficulty' value='5' onChange={writting} checked={activity.difficulty === '5'}/>5
                             </div>
-                            <div>
+                            <div className={`${style.dur}`}>
                                 <label>Duration: </label>
-                                <div>*in hours</div>
-                                <div>*0 means it depends on the person</div>
                                 <input type='radio' name='duration' value='1' onChange={writting} checked={activity.duration === '1'}/>1
                                 <input type='radio' name='duration' value='2' onChange={writting} checked={activity.duration === '2'}/>2
                                 <input type='radio' name='duration' value='3' onChange={writting} checked={activity.duration === '3'}/>3
@@ -195,6 +195,7 @@ export default function CreateActivityCard(){
                                 <input type='radio' name='duration' value='7' onChange={writting} checked={activity.duration === '7'}/>7
                                 <input type='radio' name='duration' value='8' onChange={writting} checked={activity.duration === '8'}/>8
                                 <input type='radio' name='duration' value='0' onChange={writting} checked={activity.duration === '0'}/>0
+                                <div>*in hours *0 means it depends on the person</div>
                             </div>
                             <div>
                                 <label>Season: </label>
@@ -203,16 +204,19 @@ export default function CreateActivityCard(){
                                 <input type='checkbox' name='season' value='Winter' onChange={writting} checked={activity.season.includes('Winter')}/>Winter
                                 <input type='checkbox' name='season' value='Spring' onChange={writting} checked={activity.season.includes('Spring')}/>Spring
                             </div>
-                            <div>
+                            <div className={`${style.input_country}`}>
                                 <label>Country or countries: </label>
-                                {
-                                    paises.length > 0?
-                                    paises.map((item, pos) => {
-                                        return <div key={pos}><input type='checkbox' value={item.name} checked={listaPaises.includes(item.name)} onChange={elegirPais}/>{item.name}</div>
-                                    })
-                                    :
-                                    <h3>cargando</h3>
-                                }
+                                <div>
+                                    {
+                                        paises.length > 0?
+                                        paises.map((item, pos) => {
+                                            return <div key={pos}><input type='checkbox' value={item.name} checked={listaPaises.includes(item.name)} onChange={elegirPais}/>{item.name}</div>
+                                        })
+                                        :
+                                        <h3>cargando</h3>
+                                    }
+                                </div>
+                                
                             </div>
                         </form>
                     </div>

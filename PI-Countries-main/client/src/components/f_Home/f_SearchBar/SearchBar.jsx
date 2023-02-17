@@ -1,6 +1,7 @@
 import {React, useState} from "react";
 import { useDispatch } from "react-redux";
 import * as actions from '../../../Redux/actions';
+import style from './style.module.css';
 
 export default function SearchBar(){
 
@@ -17,14 +18,15 @@ export default function SearchBar(){
     }
 
     return(
-        <div>
-            <form onSubmit={noRefresh}>
+        <div className={`${style.box}`}>
+            <form onSubmit={noRefresh} className={`${style.form}`}>
                 <input
                     placeholder="lugar en mente...?"
                     value={pais}
                     onChange={dataPais}
+                    className={`${style.barra}`}
                 />
-                <button type="submit">Buscar</button>
+                <button type="submit" className={`${style.boton}`}>Search</button>
             </form>
         </div>
     )

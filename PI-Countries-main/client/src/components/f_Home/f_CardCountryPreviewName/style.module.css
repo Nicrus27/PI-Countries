@@ -1,10 +1,30 @@
 .card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 280px;
-    height: 250px;
+    height: 300px;
     border-radius: 12px;
-    border: dashed 7px brown;
+    border: solid 1px rgb(0, 247, 255);
+    background-color: rgba(6, 93, 173, 0.548);
+    margin: 10px;
 }
 
 .img{
     width: 120px;
+    height: 80px;
+    border: rgb(233, 172, 6) 1px solid;
+}
+
+.datos{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    text-transform: capitalize;
+    color: white;
+}
+
+.txt{
+    margin: 0;
 }

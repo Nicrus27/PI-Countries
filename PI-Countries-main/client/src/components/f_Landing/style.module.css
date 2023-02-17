@@ -1,9 +1,46 @@
 body{
-    background-image: url('https://www.nicepng.com/png/detail/39-392727_world-map-background-tumblr-world-png-transparent-world.png');
+    background: url('https://images4.alphacoders.com/758/75886.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
+.wel{
+    border-left: white 5px solid;;
+    border-bottom: white 1px solid;;
+    border-right: rgb(0, 183, 255) 2px dashed;
+    width: 50%;
+    border-radius: 15px;
+    color: rgb(0, 183, 255);
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(0, 0, 0);
+    font-size: 50px;
+}
+
+.enter{
+    border: white 1px solid;
+    width: 100%;
+    border-radius: 15px;
+    color: white;
+    font-family: monospace;
+    background-color: rgb(0, 0, 0);
+    font-size: 40px;
+}
+
+.enter:hover {
+    border: white 1px solid;
+    width: 100%;
+    border-radius: 15px;
+    color: rgb(0, 183, 255);
+    font-family: monospace;
+    background-color: rgb(75, 74, 74);
+    font-size: 40px;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 /*
-foto que quiero: https://wallpaperaccess.com/full/3816316.jpg
+font-family: fantasy;
 */

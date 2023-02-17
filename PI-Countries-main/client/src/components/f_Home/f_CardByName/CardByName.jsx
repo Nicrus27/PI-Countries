@@ -18,8 +18,9 @@ export default function CardByName(){
     var [filtro, setfiltro] = useState(false); //muestra los botones filtro cuando esten disponibles
     var [b_cont, setB_cont] = useState([]); //array para crear botones de filtro por continente 
     var [cont_a, setCont_a] = useState('All'); //continente activo en filtro
-    var [botonesPaginado, setBotonesPaginado] = useState([]); //se guardan los array que forman los datos para botones de paginado 
+    var [botonesPaginado, setBotonesPaginado] = useState([]); //se guardan los array que forman los datos para botones de paginado
     var [mostrarPagina, setMostrarPagina] = useState([]); //esta pagina muestra los paises que pertenecen a esta
+    var [paginaActual, setPaginaActual] = useState('');
     var [act_b, setAct_b] = useState([]); 
     var [c_act, setC_act] = useState('none');
 
@@ -79,7 +80,6 @@ export default function CardByName(){
                     }
                 })
             })
-            //console.log(buscar)
             setPaises(prev => prev = buscar)
         }
 
@@ -95,11 +95,9 @@ export default function CardByName(){
             })
             if(orden === 'Az'){
                 setPaises(prev => prev = ordenado);
-                //setOrdenAz(orden);
             } else if(orden === 'Za'){
                 ordenado = ordenado.reverse()
                 setPaises(prev => prev = ordenado);
-                //setOrdenAz(orden);
             }
         
     }
@@ -126,11 +124,9 @@ export default function CardByName(){
         data.forEach(item => ordenado.push(paises.filter(pp => pp.name === item.n)[0]))
         if(pob === '-P'){
             setPaises(prev => prev = ordenado);
-            //setP_active(pob);
         } else if(pob === '+P'){
             ordenado = ordenado.reverse();
             setPaises(prev => prev = ordenado);
-            //setP_active(pob);
         }
     }
 
@@ -173,6 +169,7 @@ export default function CardByName(){
         } else {
             setMostrarPagina([paises[tam[0]]]);
         }
+        setPaginaActual(pos)
     }
 
     function ccc(e){
@@ -213,8 +210,10 @@ export default function CardByName(){
             } else {
                 setMostrarPagina([paises[0]]);
             }
+            setPaginaActual(1)
         } else {
             setMostrarPagina([])
+            setPaginaActual('')
         }
     }, [botonesPaginado])
     
@@ -228,63 +227,70 @@ export default function CardByName(){
                 <div>
                     {
                         mostrarBotones &&
-                        <button onClick={toggleFiltro}>Filtros</button>
+                        <button onClick={toggleFiltro} className={`${style.boton}`}>Filters</button>
                     }
                 </div>
-                
-                <div>
-                    {/*botones filtro por continente "falta por actividad"*/
-                        filtro &&
-                        
-                        b_cont.map((item, pos) => 
-                            <div key={pos}>
-                                <input type="radio" id={item} value={item} name="continente_seleccionado" onChange={filter_cont} checked={cont_a === item}/>
-                                <label htmlFor={item}>{item}</label>
+                <div className={`${style.filter}`}>
+                    <div>
+                        {/*botones filtro por continente "falta por actividad"*/
+                            filtro &&
+                            
+                            b_cont.map((item, pos) => 
+                                <div key={pos} className={`${style.radio}`}>
+                                    <input type="radio" id={item} value={item} name="continente_seleccionado" onChange={filter_cont} checked={cont_a === item}/>
+                                    <label htmlFor={item}>{item}</label>
+                                </div>
+                                )
+                        }
+                    </div>
+                    <div>
+                        {/*botones orden por alfabeto o poblacion */
+                            filtro && 
+                                <div>
+                                    <button onClick={toggleAZ} className={`${style.boton}`} value="Az">Az</button>
+                                    <button onClick={toggleAZ} className={`${style.boton}`} value="Za">Za</button>
+                                </div>
+                        }
+                    </div>
+                        {
+                            paginaActual &&
+                            <div className={`${style.boton2}`}>
+                                Page: {paginaActual}
                             </div>
+                        }
+                    <div>
+                        {/*botones orden por alfabeto o poblacion */
+                            filtro && 
+                                <div>
+                                    <button onClick={toggle_P} className={`${style.boton}`} value="+P">+P</button>
+                                    <button onClick={toggle_P} className={`${style.boton}`} value="-P">-P</button>
+                                </div>
+                        }
+                    </div>
+                    <div>
+                        { //filtro actividades
+                            (filtro && act_b.length) &&
+                            act_b.map((item, pos) => 
+                                <div key={pos} className={`${style.radio}`}>
+                                    <input type="radio" id={item} value={item} name="actividad_seleccionada" onChange={filter_act} checked={c_act === item}/>
+                                    <label>{item}</label>
+                                </div>
                             )
-                    }
-                </div>
-                <div>
-                    {/*botones orden por alfabeto o poblacion */
-                        filtro && 
-                            <div>
-                                <button onClick={toggleAZ} value="Az">Az</button>
-                                <button onClick={toggleAZ} value="Za">Za</button>
-                            </div>
-                    }
-                </div>
-                <div>
-                    {/*botones orden por alfabeto o poblacion */
-                        filtro && 
-                            <div>
-                                <button onClick={toggle_P} value="+P">+P</button>
-                                <button onClick={toggle_P} value="-P">-P</button>
-                            </div>
-                    }
-                </div>
-                <div>
-                    {//botones paginado
-                    
-                        filtro &&
-                        botonesPaginado.map((item, pos) => <button key={pos} value={pos} onClick={seleccionarPagina}>{pos+1}</button>)
-                        
-                    }
-                </div>
-                <div>
-                    {
-                        (filtro && act_b.length) &&
-                        act_b.map((item, pos) => 
-                            <div key={pos}>
-                                <input type="radio" id={item} value={item} name="actividad_seleccionada" onChange={filter_act} checked={c_act === item}/>
-                                <label>{item}</label>
-                            </div>
-                        )
-                    }
+                        }
+                    </div>
                 </div>
             </div>
+            <div>
+                        {//botones paginado
+                        
+                            filtro &&
+                            botonesPaginado.map((item, pos) => <button key={pos} value={pos} onClick={seleccionarPagina} className={`${style.boton}`}>{pos+1}</button>)
+                            
+                        }
+                    </div>
             <div className={`${style.box}`}>
                 {/*paises buscados*/
-                    paises.length > 0?
+                    paises.length > 0 &&
                     mostrarPagina.map(item =>
                         <CardCountryPreviewName
                             key={item.id}
@@ -292,13 +298,24 @@ export default function CardByName(){
                             img={item.flag}
                             name={item.name}
                             cont={item.continent}
+                            pob={item.population}
                         />
                     )
-                    :
-                    <h2>cargando</h2>
                 }
             </div>
-            
+            <div>
+                        {//botones paginado
+                        
+                            filtro &&
+                            botonesPaginado.map((item, pos) => <button key={pos} value={pos} onClick={seleccionarPagina} className={`${style.boton}`}>{pos+1}</button>)
+                            
+                        }
+                    </div>
         </div>
     )
 }
+
+/*
+:
+<h2>cargando</h2>
+*/

@@ -4,8 +4,9 @@ import style from './style.module.css';
 
 export default function Landing(){
     return(
-        <div>
-            <Link to='/home'><button>Entrar</button></Link>
+        <div className={`${style.box}`}>
+            <h1 className={`${style.wel}`}>Welcome a new destination...</h1>
+            <Link to='/home'><button className={`${style.enter}`}>Enter</button></Link>
         </div>
     )
 }

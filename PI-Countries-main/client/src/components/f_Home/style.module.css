@@ -1,0 +1,45 @@
+.main{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home{
+    border: solid white 1px;
+    border-radius: 10px;
+    background-color: black;
+    color: rgb(0, 183, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.home:hover {
+    border: solid white 1px;
+    border-radius: 10px;
+    background-color: rgb(67, 86, 110);
+    color: rgb(0, 183, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.act{
+    border: solid rgb(253, 174, 2) 1px;
+    border-radius: 10px;
+    background-color: black;
+    padding: 8px;
+    color: rgb(0, 183, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+.act:hover{
+    border: dashed rgb(253, 174, 2) 1px;
+    border-radius: 10px;
+    background-color: rgb(82, 82, 82);
+    padding: 8px;
+    color: rgb(0, 183, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}

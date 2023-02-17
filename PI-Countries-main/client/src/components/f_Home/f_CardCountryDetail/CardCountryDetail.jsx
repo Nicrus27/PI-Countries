@@ -4,6 +4,7 @@ import * as actions from "../../../Redux/actions";
 import { useParams } from "react-router-dom";
 import { DetailActivities } from "./f_DetailActivities/DetailActivities";
 import { Link } from "react-router-dom";
+import style from "./style.module.css";
 
 
 export default function CardCountryDetail(){
@@ -28,21 +29,21 @@ export default function CardCountryDetail(){
     }, [])
 
     return(
-        <div>
-            <Link to='/home'><button>Home</button></Link>
+        <div className={`${style.box}`}>
+            <Link to='/home' style={{textDecoration: 'none'}} className={`${style.home}`}>Home</Link>
             {
                 det.name?
-                <div>
-                    <img src={det.flag} alt={det.name}/>
-                    <h1>{det.name}</h1>
-                    <h2>Codigo de pais: {det.id}</h2>
-                    <h2>Continente: {det.continent}</h2>
+                <div className={`${style.data}`}>
+                    <img src={det.flag} alt={det.name} className={`${style.img}`}/>
+                    <h1>Country: {det.name}</h1>
+                    <h2>Country id: {det.id}</h2>
+                    <h2>Continent: {det.continent}</h2>
                     <h2>Capital: {det.capital}</h2>
                     <h2>Subregion: {det.subregion}</h2>
                     <h2>Area: {det.area}</h2>
-                    <h2>Poblacion: {det.population}</h2>
-                    <div>
-                        <h1>Activities</h1>
+                    <h2>Population: {det.population}</h2>
+                    <h1>Activities:</h1>
+                    <div className={`${style.box_act}`}>
                         {
                             det.acts?
                             det.acts.map(item => {
