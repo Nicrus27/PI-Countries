@@ -27,10 +27,10 @@ export function searchByName(busqueda){
                 payload: data
             }))
             .catch(err => {
-                console.log('error en action ', SEARCHBYNAME, err) //err.response.data
+                console.log('error en action ', SEARCHBYNAME, err.response.data) //err.response.data
                 dispatch({
                     type: SEARCHBYNAME,
-                    payload: []
+                    payload: err.response.data
                 })
             })
     }

@@ -180,7 +180,7 @@ export default function CardByName(){
 
     useEffect(() => {
         
-        if(paisesStore.length && paisesStore[0].length > 0){
+        if(typeof paisesStore === 'object' && paisesStore.length && paisesStore[0].length > 0){
             setPaises(paisesStore[0])
             setMostrarBotones(true);
             takeC(paisesStore[0]);
@@ -188,11 +188,12 @@ export default function CardByName(){
             activityButtons(paisesStore[1])
         } else {
             setMostrarBotones(false)
+            setPaises(paisesStore)
         }
     }, [paisesStore])
 
     useEffect(() => {
-        if(paises.length > 0){
+        if(typeof paisesStore === 'object' && paises.length && paises.length > 0){
             botonesDePaginado()
         } else {
             setBotonesPaginado([])
@@ -253,7 +254,7 @@ export default function CardByName(){
                         }
                     </div>
                         {
-                            paginaActual &&
+                            (paginaActual && filtro) &&
                             <div className={`${style.boton2}`}>
                                 Page: {paginaActual}
                             </div>
@@ -288,19 +289,26 @@ export default function CardByName(){
                             
                         }
                     </div>
-            <div className={`${style.box}`}>
+            <div>
                 {/*paises buscados*/
-                    paises.length > 0 &&
-                    mostrarPagina.map(item =>
-                        <CardCountryPreviewName
-                            key={item.id}
-                            id={item.id}
-                            img={item.flag}
-                            name={item.name}
-                            cont={item.continent}
-                            pob={item.population}
-                        />
-                    )
+                    typeof paises === 'string' ?
+                    <div className={`${style.error}`}>{paises}</div>
+                    :
+                    <div className={`${style.box}`}>
+                        {
+                            paises.length > 0 &&
+                            mostrarPagina.map(item =>
+                                <CardCountryPreviewName
+                                    key={item.id}
+                                    id={item.id}
+                                    img={item.flag}
+                                    name={item.name}
+                                    cont={item.continent}
+                                    pob={item.population}
+                                />
+                            )
+                        }
+                    </div>
                 }
             </div>
             <div>

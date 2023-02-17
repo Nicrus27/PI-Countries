@@ -26,7 +26,7 @@ router.get('/countries', async (req, res, next) => {
             }
         })
         if (busqueda.length === 0){
-            return res.status(400).send('No se encontraron paises que coincidan.')
+            return res.status(400).send('No matches found.')
         } else {
             acts = await Promise.all(
                 busqueda.map(async item => {
@@ -42,20 +42,7 @@ router.get('/countries', async (req, res, next) => {
     } else {next()}
 })
 
-
-
-/*
-console.log('1', busqueda[0])
-            var ids = busqueda.map(item => item.toJSON().id)
-            var searched = ids.map(async item => await Country.findByPk(item))
-            Promise.all(searched)
-                .then(item => {
-                    item.map(i => console.log(i))
-                })
-            //console.log('s', searched)
-*/
 router.get('/countries', async (req, res) => {
-    //responde con todos los paises ya depositados en db
     const paises = await Country.findAll();
     acts = await Promise.all(
         paises.map(async item => {
@@ -68,7 +55,6 @@ router.get('/countries', async (req, res) => {
     var resPaises = paises.map(item => item.toJSON());
     res.status(200).send([resPaises, acts]);
 })
-
 
 
 router.get('/countries/:id', async (req, res) => {

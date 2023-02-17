@@ -38,5 +38,13 @@
     color: white;
     background-color: black;
     padding: 6px;
+}
 
+.error{
+    background-color: rgb(0, 0, 0);
+    border: solid 1px red;
+    color: red;
+    font-family: monospace;
+    font-size: 30px;
+    padding: 4px;
 }
